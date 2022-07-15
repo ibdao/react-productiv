@@ -32,10 +32,11 @@ function EditableTodo({ todo, update, remove }) {
 
   return (
     <div className="EditableTodo">
-      {isEditing === true ? (
-        <TodoForm handleSave={handleSave} />
-      ) : (
+      { isEditing 
+      ? (<TodoForm handleSave={handleSave} />) 
+      : (
         <div className="mb-3">
+          
           <div className="float-end text-sm-end">
             <button
               className="EditableTodo-toggle btn-link btn btn-sm"
@@ -50,7 +51,7 @@ function EditableTodo({ todo, update, remove }) {
               Del
             </button>
           </div>
-          <Todo todo={todo} />
+          <Todo todo={ todo } />
         </div>
       )}
     </div>

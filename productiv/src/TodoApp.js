@@ -40,25 +40,23 @@ function TodoApp({ initialTodos }) {
     <main className="TodoApp">
       <div className="row">
         <div className="col-md-6">
-          {todos ? (
-            <EditableTodoList todos={todos} remove={remove} update={update} />
-          ) : (
-            <span className="text-muted">You have no todos.</span>
-          )}
+          {todos 
+          ? (<EditableTodoList todos={ todos } remove={ remove } update={ update } />)
+          :(<span className="text-muted">You have no todos.</span>)}
+            
         </div>
-
         <div className="col-md-6">
           <section className="mb-4">
             <h3>Top Todo</h3>
-            {todos ? (
-              <TopTodo todos={todos} />
+            { todos ? (
+              <TopTodo todos={ todos } />
             ) : (
               <span className="text-muted">You have no todos.</span>
             )}
           </section>
           <section>
             <h3 className="mb-3">Add Nü</h3>
-            <TodoForm handleSave={create} />
+            <TodoForm handleSave={ create } />
           </section>
         </div>
       </div>
