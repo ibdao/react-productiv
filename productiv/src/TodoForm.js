@@ -7,17 +7,24 @@ import { v4 as uuid } from "uuid";
  * - initialFormData
  * - handleSave: function to call in parent.
  *
+ * TODO: states:
+ *
  * { TodoApp, EditableTodo } -> TodoForm
  */
 
-function TodoForm({ initialFormData, handleSave }) {
-  const [formData, setFormData] = useState({ title: "", description: "", priority: "" });
+function TodoForm({
+  //TODO: make it a default value via setting it to a variable
+  initialFormData = { title: "", description: "", priority: 1 },
+  handleSave,
+}) {
+  const [formData, setFormData] = useState(initialFormData);
+  console.log("inToDOForm component", initialFormData);
 
   /** Update form input. */
   function handleChange(evt) {
-    evt.preventDefault();
+    // evt.preventDefault(); we don't needed it, page don't refresh here
     const { name, value } = evt.target;
-    setFormData(fData => ({
+    setFormData((fData) => ({
       ...fData,
       [name]: value,
     }));
@@ -28,19 +35,19 @@ function TodoForm({ initialFormData, handleSave }) {
     evt.preventDefault();
     handleSave(formData);
     console.log("handleSubmit", formData);
-    setFormData({ title: "", description: "", priority: "" });
+    setFormData({ title: "", description: "", priority: 1 });
   }
 
   return (
-    <form className="NewTodoForm" onSubmit={ handleSubmit }>
+    <form className="NewTodoForm" onSubmit={handleSubmit}>
       <div className="mb-3">
         <input
           id="newTodo-title"
           name="title"
           className="form-control"
           placeholder="Title"
-          onChange={ handleChange }
-          value={ formData.title }
+          onChange={handleChange}
+          value={formData.title}
           aria-label="Title"
         />
       </div>
@@ -51,8 +58,8 @@ function TodoForm({ initialFormData, handleSave }) {
           name="description"
           className="form-control"
           placeholder="Description"
-          onChange={ handleChange }
-          value={ formData.description }
+          onChange={handleChange}
+          value={formData.description}
           aria-label="Description"
         />
       </div>
@@ -65,8 +72,8 @@ function TodoForm({ initialFormData, handleSave }) {
           <select
             id="newTodo-priority"
             name="priority"
-            value={ formData.priority }
-            onChange={ handleChange }
+            value={formData.priority}
+            onChange={handleChange}
             className="form-control form-control-sm d-inline-flex"
           >
             <option value={1}>Ultra-Über</option>

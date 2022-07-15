@@ -21,42 +21,57 @@ function TodoApp({ initialTodos }) {
 
   /** add a new todo to list */
   function create(newTodo) {
-    const nT = { ...newTodo, id: uuid() };
-    setTodos(todos => [...todos], nT);
+    const todoToAdd = { ...newTodo, id: uuid() };
+    setTodos((todos) => [...todos, todoToAdd]); // used to be a bug [...todos],todoToAdd
+    console.log(todos);
   }
 
   /** update a todo with updatedTodo */
   function update(updatedTodo) {
-    const uT = { ...updatedTodo };
-    console.log("updatedTodo", uT)
-    setTodos(todos.map(todo => todo.id === uT.id ? todo = uT : todo));
+    const todoToUpdate = { ...updatedTodo };
+    console.log("updatedTodo", todoToUpdate);
+    setTodos(
+      todos.map((todo) =>
+        todo.id === todoToUpdate.id ? (todo = todoToUpdate) : todo
+      )
+    );
     console.log(todos);
   }
 
   /** delete a todo by id */
   function remove(id) {
-    setTodos(todos => todos.filter(todo => todo.id !== id));
+    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+  }
+
+  function hasNoTodos(todos) {
+    if (todos.length !== 0) {
+      return false;
+    }
+    return true;
   }
 
   return (
     <main className="TodoApp">
       <div className="row">
         <div className="col-md-6">
-          {todos 
-          ? (<EditableTodoList todos={ todos } remove={ remove } update={ update } />)
-          : (<span className="text-muted">You have no todos.</span>) }
-            
+          {!hasNoTodos(todos) ? (
+            <EditableTodoList todos={todos} remove={remove} update={update} />
+          ) : (
+            <span className="text-muted">You have no todos.</span>
+          )}
         </div>
         <div className="col-md-6">
           <section className="mb-4">
             <h3>Top Todo</h3>
-            { todos 
-            ? ( <TopTodo todos={ todos } />) 
-            : (<span className="text-muted">You have no todos.</span>)}
+            {!hasNoTodos(todos) ? (
+              <TopTodo todos={todos} />
+            ) : (
+              <span className="text-muted">You have no todos.</span>
+            )}
           </section>
           <section>
             <h3 className="mb-3">Add Nü</h3>
-            <TodoForm handleSave={ create } />
+            <TodoForm handleSave={create} />
           </section>
         </div>
       </div>
