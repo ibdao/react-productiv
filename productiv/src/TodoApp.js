@@ -22,18 +22,20 @@ function TodoApp({ initialTodos }) {
   /** add a new todo to list */
   function create(newTodo) {
     const nT = { ...newTodo, id: uuid() };
-    setTodos((todos) => [...todos], nT);
+    setTodos(todos => [...todos], nT);
   }
 
   /** update a todo with updatedTodo */
   function update(updatedTodo) {
     const uT = { ...updatedTodo };
-    setTodos((todos) => [...todos], uT);
+    console.log("updatedTodo", uT)
+    setTodos(todos.map(todo => todo.id === uT.id ? todo = uT : todo));
+    console.log(todos);
   }
 
   /** delete a todo by id */
   function remove(id) {
-    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+    setTodos(todos => todos.filter(todo => todo.id !== id));
   }
 
   return (
@@ -42,17 +44,15 @@ function TodoApp({ initialTodos }) {
         <div className="col-md-6">
           {todos 
           ? (<EditableTodoList todos={ todos } remove={ remove } update={ update } />)
-          :(<span className="text-muted">You have no todos.</span>)}
+          : (<span className="text-muted">You have no todos.</span>) }
             
         </div>
         <div className="col-md-6">
           <section className="mb-4">
             <h3>Top Todo</h3>
-            { todos ? (
-              <TopTodo todos={ todos } />
-            ) : (
-              <span className="text-muted">You have no todos.</span>
-            )}
+            { todos 
+            ? ( <TopTodo todos={ todos } />) 
+            : (<span className="text-muted">You have no todos.</span>)}
           </section>
           <section>
             <h3 className="mb-3">Add Nü</h3>

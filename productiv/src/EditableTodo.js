@@ -16,7 +16,7 @@ function EditableTodo({ todo, update, remove }) {
   const [isEditing, setIsEditing] = useState(false);
   /** Toggle if this is being edited */
   function toggleEdit() {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   }
 
   /** Call remove fn passed to this. */
@@ -27,26 +27,26 @@ function EditableTodo({ todo, update, remove }) {
   /** Edit form saved; toggle isEditing and update in ancestor. */
   function handleSave(formData) {
     toggleEdit();
-    update({ ...formData });
+    update({...formData});
   }
 
   return (
     <div className="EditableTodo">
       { isEditing 
-      ? (<TodoForm handleSave={handleSave} />) 
+      ? (<TodoForm handleSave={ handleSave } initialFormData={ todo } />) 
       : (
         <div className="mb-3">
           
           <div className="float-end text-sm-end">
             <button
               className="EditableTodo-toggle btn-link btn btn-sm"
-              onClick={toggleEdit}
+              onClick={ toggleEdit }
             >
               Edit
             </button>
             <button
               className="EditableTodo-delBtn btn-link btn btn-sm text-danger"
-              onClick={handleDelete}
+              onClick={ handleDelete }
             >
               Del
             </button>

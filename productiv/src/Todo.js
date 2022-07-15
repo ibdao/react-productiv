@@ -12,10 +12,10 @@ function Todo({ todo }) {
   return (
     <div className="Todo">
       <div>
-        <b>{todo.title}</b> <small>priority: {todo.priority}</small>
+        <b>{ todo.title }</b> <small>priority: { todo.priority }</small>
       </div>
       <div>
-        <small>{todo.description}</small>
+        <small>{ todo.description }</small>
       </div>
     </div>
   );

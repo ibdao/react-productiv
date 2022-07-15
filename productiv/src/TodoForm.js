@@ -11,13 +11,13 @@ import { v4 as uuid } from "uuid";
  */
 
 function TodoForm({ initialFormData, handleSave }) {
-  const [formData, setFormData] = useState({ initialFormData });
+  const [formData, setFormData] = useState({ title: "", description: "", priority: "" });
 
   /** Update form input. */
   function handleChange(evt) {
     evt.preventDefault();
     const { name, value } = evt.target;
-    setFormData((fData) => ({
+    setFormData(fData => ({
       ...fData,
       [name]: value,
     }));
@@ -26,21 +26,21 @@ function TodoForm({ initialFormData, handleSave }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    //For adding a Todo
     handleSave(formData);
-    setFormData(initialFormData);
+    console.log("handleSubmit", formData);
+    setFormData({ title: "", description: "", priority: "" });
   }
 
   return (
-    <form className="NewTodoForm" onSubmit={handleSubmit}>
+    <form className="NewTodoForm" onSubmit={ handleSubmit }>
       <div className="mb-3">
         <input
           id="newTodo-title"
           name="title"
           className="form-control"
           placeholder="Title"
-          onChange={handleChange}
-          value={formData.title}
+          onChange={ handleChange }
+          value={ formData.title }
           aria-label="Title"
         />
       </div>
@@ -51,8 +51,8 @@ function TodoForm({ initialFormData, handleSave }) {
           name="description"
           className="form-control"
           placeholder="Description"
-          onChange={handleChange}
-          value={formData.description}
+          onChange={ handleChange }
+          value={ formData.description }
           aria-label="Description"
         />
       </div>
@@ -65,8 +65,8 @@ function TodoForm({ initialFormData, handleSave }) {
           <select
             id="newTodo-priority"
             name="priority"
-            value={formData.priority}
-            onChange={handleChange}
+            value={ formData.priority }
+            onChange={ handleChange }
             className="form-control form-control-sm d-inline-flex"
           >
             <option value={1}>Ultra-Über</option>
